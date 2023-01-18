@@ -24,15 +24,15 @@
                       <div class="col-auto">
                         <q-btn color="grey-7" round flat icon="more-vert">
                           <q-menu>
-                            <q-list dense style="min-width: 100px">
+                            <q-list dense style="min-width: auto">
                               <q-btn
-                                >Editer
+                                >🖊️
                                 <q-menu>
                                   <q-item clickable>
                                     <form
                                       className="form"
                                       @submit.prevent="
-                                        modifyCurrentList(list_all._id)
+                                        editCurrentList(list_all._id)
                                       "
                                     >
                                       <q-input
@@ -59,7 +59,7 @@
                                   "
                                 >
                                   <q-btn type="submit" class="btn btn-block"
-                                    >Supprimer</q-btn
+                                    >❌</q-btn
                                   >
                                 </form>
                               </q-item-section>
@@ -70,9 +70,7 @@
                     </div>
                   </q-card-selection>
                   <q-card-section class="bg-white" align="left">
-                    <q-btn color="blue" to="/Dashboard/Tasks">
-                      Voir ma liste
-                    </q-btn>
+                    <q-btn color="blue" @click="redirectToTasks(list_all._id)" label="Voir mes tâches" class="q-mb-md" />
                   </q-card-section>
                 </q-card>
               </div>
@@ -81,7 +79,7 @@
         </div>
       </div>
       <div class="left-block">
-        <h3>
+        <h4>
           Mes Listes
           <q-btn color="blue" round flat>
             <svg
@@ -101,16 +99,17 @@
             </svg>
             <q-menu>
               <q-item clickable>
-                <form className="form" @submit.prevent="addnewList">
-                  <q-input v-model="newList" clearable filled label="Add" />
-                  <q-btn type="submit" class="btn btn-block">
-                    Add new list
+                <form className="form" @submit.prevent="createList">
+                  <q-input v-model="newList" clearable filled label="Ajouter" />
+                  <br>
+                          <q-btn type="submit" class="btn btn-block">
+                    Ajouter la liste ➕
                   </q-btn>
                 </form>
               </q-item>
             </q-menu>
           </q-btn>
-        </h3>
+        </h4>
         <div v-if="loading">
           <q-circular-progress
             indeterminate
@@ -149,14 +148,14 @@ const lists = ref([])
 const newList = ref('')
 const modList = ref('')
 
-const addnewList = async () => {
+const createList = async () => {
   const listForm = { title: newList.value }
   const response = await addList(listForm)
   window.location.reload()
   console.log(response)
 }
 
-const modifyCurrentList = async (getId) => {
+const editCurrentList = async (getId) => {
   const modifylistForm = { title: modList.value }
   const response = await modifyList(getId, modifylistForm)
   window.location.reload()
@@ -220,8 +219,8 @@ onMounted(async () => {
   /* border-radius: 20px; */
 }
 
-.left-block h3 {
-  height: 50px;
+.left-block h4 {
+  height: 30px;
 }
 
 .left-block .lists {

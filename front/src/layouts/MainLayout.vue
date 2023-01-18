@@ -2,8 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-white  text-black">
       <q-toolbar>
+        <q-btn src='../assets/logo.png' style="height: 40px; max-width: 40px" to="/" />
         <q-toolbar-title>
-          Quasar App
+          TODO LIST
         </q-toolbar-title>
         <Router-link to="/logIn">
           Se connecter

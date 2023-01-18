@@ -46,7 +46,7 @@ export async function register (ctx) {
   newUser.generateEmailVerificationToken()
   // newUser.generateJWT() 
   const user = await newUser.save()
-  // await sendWelcomeEmail(user, user.settings.validation_email_token) Désactiver temporairement (ECONNREFUSED:1:1025)
+  await sendWelcomeEmail(user, user.settings.validation_email_token)
   ctx.ok(newUser)
   console.log(newUser)
  } catch(e) {
